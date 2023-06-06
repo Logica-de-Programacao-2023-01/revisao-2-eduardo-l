@@ -15,6 +15,22 @@ type Student struct {
 }
 
 func MergeStudentData(studentData1 map[string]Student, studentData2 map[string]Student) map[string]Student {
-	// Seu código aqui
-	return nil
+	mergedData := make(map[string]Student)
+
+	for id, student := range studentData1 {
+		mergedData[id] = student
+	}
+
+	for id, student := range studentData2 {
+		if existingStudent, ok := mergedData[id]; ok {
+			for subject, grade := range student.Subjects {
+				existingStudent.Subjects[subject] = grade
+			}
+			mergedData[id] = existingStudent
+		} else {
+			mergedData[id] = student
+		}
+	}
+
+	return mergedData
 }
