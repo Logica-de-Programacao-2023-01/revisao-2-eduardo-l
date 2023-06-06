@@ -21,5 +21,27 @@ type Product struct {
 
 func UpdateStock(product *Product, sales map[string]int) error {
 	// Seu código aqui
-	return errors.New("Not implemented yet")
+	package q3
+
+import "errors"
+
+type Product struct {
+	Code     string
+	Name     string
+	Price    float64
+	Quantity int
+}
+
+func UpdateStock(product *Product, sales map[string]int) error {
+	for code, quantity := range sales {
+		if code == product.Code {
+			if product.Quantity >= quantity {
+				product.Quantity -= quantity
+			} else {
+				return errors.New("Quantidade insuficiente em estoque")
+			}
+		}
+	}
+
+	return nil
 }
